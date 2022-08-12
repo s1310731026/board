@@ -6,12 +6,14 @@ import java.util.Date;
 @Entity
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String title;
     private String publisher;
     private String context;
+    private String publishstartdate;
+    private String Publishenddate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "startdate",nullable = false,
@@ -25,6 +27,22 @@ public class Board {
 
 
     public Board() {
+    }
+
+    public String getPublishstartdate() {
+        return publishstartdate;
+    }
+
+    public void setPublishstartdate(String publishstartdate) {
+        this.publishstartdate = publishstartdate;
+    }
+
+    public String getPublishenddate() {
+        return Publishenddate;
+    }
+
+    public void setPublishenddate(String publishenddate) {
+        Publishenddate = publishenddate;
     }
 
     public Integer getId() {

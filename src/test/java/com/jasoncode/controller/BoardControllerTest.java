@@ -23,7 +23,7 @@ class BoardControllerTest {
 
     @Test
     void create() {
-        Assert.assertNotNull(controller.create("test1","title1ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss","jason"));
+        Assert.assertNotNull(controller.create("test1","title1ssssss","jason","",""));
 
     }
 
