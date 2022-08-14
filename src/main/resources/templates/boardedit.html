@@ -17,7 +17,7 @@
     </div>
     <button id="returnbtn" type="submit" class="btn btn-primary">返回</button>
 
-    <form class="col-sm-6"  data-target="#navbar">
+    <form class="col-sm-6"  data-target="#navbar" action="#">
         <div class="form-group">
             <label for="form">標題</label>
             <input type="text" class="form-control" id="_title" placeholder="請輸入標題">
@@ -38,10 +38,14 @@
             <label for="form">公布內容</label>
             <input type="text" class="form-control" id="_context" placeholder="">
         </div>
+        <div id="imgblob">
+
+        </div>
         <div class="form-group">
             <label for="form">Example file input</label>
-            <input type="file" class="form-control-file" id="_file">
+            <input type="file" class="form-control-file" id="_file"  data-target="file-uploader" accept="image/*">
         </div>
+
         <button type="submit" class="btn btn-primary">確定</button>
       </form>
 

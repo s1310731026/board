@@ -15,6 +15,9 @@ public class Board {
     private String publishstartdate;
     private String Publishenddate;
 
+    @Lob
+    private byte[] file;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "startdate",nullable = false,
             columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
@@ -27,6 +30,14 @@ public class Board {
 
 
     public Board() {
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     public String getPublishstartdate() {

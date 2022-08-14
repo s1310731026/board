@@ -4,9 +4,8 @@ $( document ).ready(() =>{
 
 });
 
-// let baseURL = "http://127.0.0.1:5501/";
-let baseURL = "http://localhost:8080/board/";
-let URL = "http://localhost:8080/board/api/boards";
+let baseURL = "/board/";
+let URL = "api/boards";
 var boardlist;
 var page=1;
 

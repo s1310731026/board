@@ -3,9 +3,14 @@ package com.jasoncode.controller;
 import com.jasoncode.entity.Board;
 import com.jasoncode.repository.BoardResposity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +28,7 @@ public class BoardController {
     }
 
     @PostMapping( "/boards")
-    public Board create(
+    public Board create(@RequestParam(value = "file",required = false) MultipartFile file,
                         @RequestParam("context")String context,
                         @RequestParam("title")String title,
                         @RequestParam("publisher")String publisher,
@@ -35,7 +40,17 @@ public class BoardController {
         board.setContext(context);
         board.setPublishstartdate(publishstartdate);
         board.setPublishenddate(publishenddate);
-
+        try {
+            board.setFile(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        String fileName = file.getOriginalFilename();
+//        try {
+//            file.transferTo( new File(  fileName));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return boardResposity.save(board);
     }
 
@@ -57,6 +72,7 @@ public class BoardController {
 //    @PutMapping("/boards/{id}")
     @PostMapping("/boards/{id}")
     public Board update(@PathVariable("id")Integer id,
+                         @RequestParam(value = "file",required = false) MultipartFile file,
                          @RequestParam("title")String title,
                          @RequestParam(value = "context",required = false)String context,
                          @RequestParam(value = "publisher",required = false)String publisher,
@@ -75,6 +91,11 @@ public class BoardController {
         board.setPublisher(publisher!=null?publisher:board.getPublisher());
         board.setPublishstartdate(publishstartdate!=null?publishstartdate:board.getPublishstartdate());
         board.setPublishenddate(publishenddate!=null?publishenddate:board.getPublishenddate());
+        try {
+            board.setFile(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return boardResposity.save(board);
 
     }
@@ -85,6 +106,17 @@ public class BoardController {
 //        return "springboot is running...";
 //    }
 
+    @PostMapping("/upload")
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file ) {
+
+        String fileName = file.getOriginalFilename();
+        try {
+            file.transferTo( new File("\\upload\\" + fileName));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.ok("File uploaded successfully.");
+    }
 
 
 }
