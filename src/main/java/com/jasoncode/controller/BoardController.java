@@ -92,7 +92,7 @@ public class BoardController {
         board.setPublishstartdate(publishstartdate!=null?publishstartdate:board.getPublishstartdate());
         board.setPublishenddate(publishenddate!=null?publishenddate:board.getPublishenddate());
         try {
-            board.setFile(file.getBytes());
+            board.setFile(file!=null?file.getBytes():board.getFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
