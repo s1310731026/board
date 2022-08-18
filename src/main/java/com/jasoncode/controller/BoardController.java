@@ -41,7 +41,7 @@ public class BoardController {
         board.setPublishstartdate(publishstartdate);
         board.setPublishenddate(publishenddate);
         try {
-            board.setFile(file.getBytes());
+            board.setFile(file!=null?file.getBytes():null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,6 +117,5 @@ public class BoardController {
         }
         return ResponseEntity.ok("File uploaded successfully.");
     }
-
 
 }
