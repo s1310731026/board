@@ -2,6 +2,8 @@ package com.jasoncode.controller;
 
 import com.jasoncode.entity.Board;
 import com.jasoncode.repository.BoardResposity;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -117,5 +120,26 @@ public class BoardController {
         }
         return ResponseEntity.ok("File uploaded successfully.");
     }
+
+    @GetMapping("/exportcsv")
+    public void exportIntoCSV(HttpServletResponse response) throws IOException {
+
+        response.setContentType("text/csv");
+
+        response.addHeader("Content-Disposition", "attachment; filename=\"student.csv\"");
+
+        CSVPrinter printer = new CSVPrinter(response.getWriter(), CSVFormat.DEFAULT);
+        List<Board> boards = boardResposity.findAll();
+        for (Board board : boards) {
+
+            printer.printRecord(board.getId(),
+                    board.getContext(),
+                    board.getPublisher(),
+                    board.getTitle(),
+                    board.getStartdate(),
+                    board.getEnddate());
+        }
+    }
+
 
 }
